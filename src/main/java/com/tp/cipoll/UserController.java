@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/cipoll")
 public class UserController {
 	
 	@Autowired
@@ -22,17 +22,17 @@ public class UserController {
 		return service.addUser(user1);
 	}
 	
-	@PutMapping("/user")
+	@PutMapping("/updateUser")
 	public UserEntity update(@RequestBody UserEntity user1){
 		return service.updateUser(user1);
 	}
 	
-	@GetMapping("/user/{id}")
+	@GetMapping("/getUser/{id}")
 	public UserEntity get(@PathVariable Long id){
 		return service.get(id);
 	}
 	
-	@DeleteMapping("/user/{id}")
+	@DeleteMapping("/deleteUser/{id}")
 	public void delete(@PathVariable Long id){
 		service.delete(id);
 	}
