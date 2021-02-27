@@ -1,32 +1,18 @@
-#!/usr/bin/env groovy
-
 node {
-    stage('checkout') {
-        checkout scm
-    }
-
-    stage('check java') {
-        sh "java -version"
-    }
-
-    stage('clean') {
-        sh "chmod +x mvnw"
-        sh "./mvnw clean"
-    }
-
-    stage('backend tests') {
-        try {
-            sh "./mvnw test"
-        } catch(err) {
-            throw err
-        } finally {
-            junit '**/target/surefire-reports/TEST-*.xml'
-        }
-    }
-
-    stage('packaging') {
-        sh "./mvnw package -Pprod -DskipTests"
-        archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
-    }
-
+   def mvnHome
+   stage('Prepare') {
+      git url: 'git@github.com:nandudemy/devops.git', branch: 'develop'
+      mvnHome = tool 'maven'
+   }
+   stage('Build') {
+      if (isUnix()) {
+         sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
+      } else {
+         bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+      }
+   }
+   stage('Unit Test') {
+      junit '**/target/surefire-reports/TEST-*.xml'
+      archive 'target/*.jar'
+   }
 }
