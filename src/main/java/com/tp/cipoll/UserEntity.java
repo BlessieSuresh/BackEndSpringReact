@@ -9,7 +9,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 //testing socketxp again
-//socketxp with jenkins
+//socketxp with jenkins API token
 
 @Entity
 @Data
