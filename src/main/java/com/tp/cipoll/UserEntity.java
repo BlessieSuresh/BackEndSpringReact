@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.Setter;
 //testing socketxp again
 //socketxp with jenkins API token
+//jenkins job
 
 @Entity
 @Data
