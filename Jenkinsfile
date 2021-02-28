@@ -1,14 +1,18 @@
 #!/usr/bin/env groovy
 
 node {
+    def mvnHome
     stage('checkout') {
         checkout scm
     }
 
-    stage('clean') {
-        sh "chmod +x mvnw"
-        sh "./mvnw clean"
-    }
+    stage('Build') {
+      if (isUnix()) {
+         sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
+      } else {
+         bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+      }
+   }
 
     stage('backend tests') {
         try {
