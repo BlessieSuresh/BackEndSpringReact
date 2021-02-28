@@ -1,7 +1,6 @@
 #!/usr/bin/env groovy
 
 node {
-    def mvnHome
     
     stage('First') {
     	bat('set')
@@ -13,9 +12,9 @@ node {
 
     stage('Build') {
       if (isUnix()) {
-         sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
+         sh "'${MAVEN_HOME}/bin/mvn' -Dmaven.test.failure.ignore clean package"
       } else {
-         bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+         bat(/"${MAVEN_HOME}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
       }
    }
 }
