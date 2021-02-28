@@ -2,6 +2,11 @@
 
 node {
     def mvnHome
+    
+    stage('First') {
+    	sh "printenv | sort"
+    }
+    
     stage('checkout') {
         checkout scm
     }
