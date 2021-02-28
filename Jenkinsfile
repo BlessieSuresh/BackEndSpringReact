@@ -1,20 +1,19 @@
 #!/usr/bin/env groovy
 
 node {
-    
-    stage('First') {
-    	bat('set')
-    }
-    
+    def mvnHome 
+    stage('Prepare') {
+      mvnHome = tool 'maven'
+   }   
     stage('checkout') {
         checkout scm
     }
 
     stage('Build') {
       if (isUnix()) {
-         sh "'${MAVEN_HOME}/bin/mvn' -Dmaven.test.failure.ignore clean package"
+         sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
       } else {
-         bat(/"${MAVEN_HOME}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+         bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
       }
    }
 }
