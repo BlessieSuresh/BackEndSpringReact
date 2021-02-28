@@ -4,7 +4,7 @@ node {
     def mvnHome
     
     stage('First') {
-    	bat("printenv")
+    	bat('set')
     }
     
     stage('checkout') {
